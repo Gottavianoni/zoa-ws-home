@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Data Web Service - ZOA</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" type="text/css">
+		<link rel="shortcut icon" href="{{ url_for('static', filename='favicon.png') }}">
+	</head>
+	<body>
+		<div class="title">
+			<div class="blk_title">
+				<h1> Welcome the Data Web Service - ZOA </h1>
+			</div>
+			<div class="blk_img">
+				<img src="{{ url_for('static', filename='images/flask_chemistry.png') }}">
+			</div>
+		</div>
+		<div class= "service l on">
+		
+		<div class="serv_right">
+			<div class="service_tile">
+				Service 1 - Pdf To Text
+			</div>
+			<div class="service_file_input">
+				<form action="" method="post">
+					<input type="text" name="file" class="btn btn-default btn-file" />
+					<input id="btsub" type="submit" class="btn btn-default btn-sub" value="Uploader" />
+				</form>
+			</div>
+		</div>
+        <div class = "serv_left">
+            {% if Done_1 %}
+            <p>
+            {{ Done_1 }}
+            </p>
+            {% endif %}
+		</div>
+		</div>
+		<div class= "service w tw">
+		  <div class="serv_right">
+			<div class="service_tile">
+				Service 2 - Pattern In Text
+			</div>
+			<div class="service_file_input">
+				<form action="" method="post">
+					<div class="blk_left">
+						<input type="text" name="pattern" class="btn btn-default btn-pattern" />
+						<input id="btsub2" type="submit" class="btn btn-default btn-sub" value="Uploader" />
+					</div>
+					<div class="blk_right">
+						<textarea class ="btn btn-default btn-textarea" name="text"></textarea>
+					</div>
+				</form>
+			</div>
+			</div>
+			<div class="serv_left">
+				{% if Done_2 %}
+				<p>
+				{{ Done_2 }}
+				</p>
+				{% endif %}
+			</div>
+		</div>
+		
+		<div class= "service l th">
+			<div class="service_tile">
+				Service 3 - 
+			</div>
+		</div>
+		<div class= "service w fo">
+			<div class="service_tile">
+				Service 4 -
+		</div>
+	</body>
+</html>
