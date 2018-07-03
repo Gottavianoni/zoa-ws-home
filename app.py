@@ -3,7 +3,7 @@ from werkzeug.utils import secure_filename
 import json,os,subprocess,re,requests
 import platform
 
-if platform.platform()[3] :
+if platform.platform()[3] == "Win" :
 	url_ws = "http://192.168.99.100"
 else :
 	url_ws = "http://localhost"	
