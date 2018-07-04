@@ -3,28 +3,22 @@ from werkzeug.utils import secure_filename
 import json,os,subprocess,re,requests
 import platform
 
-if platform.platform()[3] == "Win" :
-	url_ws = "http://192.168.99.100"
-else :
-	url_ws = "http://localhost"	
+url_ws = "http://192.168.99.100"
 
 
-UPLOAD_FOLDER = 'uploads/'
-TIKA_EXE = 'external/'
-TIKA_INPT = 'uploads/temps.pdf'
+UPLOAD_FOLDER = 'temp/'
 FULL = os.getcwd()
 
 app = Flask(__name__)
+
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['TIKA_EXE'] = TIKA_EXE
-app.config["TIKA_INPT"] = TIKA_INPT
 app.config["FULL"] = FULL
 
 @app.route('/', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
         pattern = request.form.get('pattern', None)
-        file = request.form.get('file', None)
+        file = request.files['file']
         textarea = request.form.get('text',None)
         if textarea is not None :
             textarea = request.form['text']
@@ -35,13 +29,22 @@ def contact():
                res = requests.post(url, data = inpt,headers = head)
                json_done = res.json()
                return render_template("home.html", Done_2 = json_done)
-        elif file is not None :
-            text = request.form['file']
-            if text != '' :
+        elif file.filename != '':
               url = url_ws + ":5001/pdf2txt"
-              files = {'file': open(text, 'rb')}
+              filename = secure_filename(file.filename)
+              filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+              filepath_ascii = filepath.encode("ascii","ignore")
+              try :
+                file.save(filepath)
+              except :
+                file.save(filepath_ascii)
+                filepath = filepath_ascii
+              file_op = open(filepath, 'rb')
+              files = {'file': file_op }
               res = requests.post(url, files=files)
               json_done = res.json()
+              file_op.close()
+              os.remove(filepath)
               return render_template("home.html", Done_1 = json_done)
         else : 
             return render_template("home.html")

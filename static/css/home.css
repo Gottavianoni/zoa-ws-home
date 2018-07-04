@@ -163,6 +163,13 @@ textarea.btn.btn-default.btn-textarea {
 	justify-content : space-between;
 }
 
+.input[type="file"] {
+	background-color: #3fc9bc7a;
+	width:200px;
+	color:white;
+	font-style: bold;
+	margin-bottom:20px;	
+}
 
 
 
