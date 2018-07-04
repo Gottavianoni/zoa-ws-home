@@ -2,8 +2,22 @@ from flask import Flask, request, render_template, redirect
 from werkzeug.utils import secure_filename
 import json,os,subprocess,re,requests
 import platform
+import socket
 
-url_ws = "http://192.168.99.100"
+try :
+    uni = str(requests.get("http://" + socket.gethostname() + ":5001/pdf2txt" ).status_code)
+except :
+    uni = "FAIL"	
+try :
+    win = str(requests.get("http://192.168.99.100:5001/pdf2txt").status_code)
+except :
+    win = "FAIL"
+
+
+if win == "200" :
+  url_ws = "http://192.168.99.100"
+else :
+  url_ws = "http://" + socket.gethostname()
 
 UPLOAD_FOLDER = 'temp/'
 FULL = os.getcwd()
