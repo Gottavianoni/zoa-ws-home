@@ -5,7 +5,6 @@ import platform
 
 url_ws = "http://192.168.99.100"
 
-
 UPLOAD_FOLDER = 'temp/'
 FULL = os.getcwd()
 
@@ -18,7 +17,10 @@ app.config["FULL"] = FULL
 def contact():
     if request.method == 'POST':
         pattern = request.form.get('pattern', None)
-        file = request.files['file']
+        try : 
+          file = request.files['file']
+        except :
+          pass
         textarea = request.form.get('text',None)
         if textarea is not None :
             textarea = request.form['text']
